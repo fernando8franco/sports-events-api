@@ -1,10 +1,11 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/sports_events_db
-    username: postgres
+    username: franco
     password: franco
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     database: postgresql
+    show-sql: true

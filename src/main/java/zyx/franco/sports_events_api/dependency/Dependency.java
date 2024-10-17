@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 @Data
 @NoArgsConstructor
@@ -14,11 +12,11 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "t_dependency")
 public class Dependency {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false, length = 150)
     private String name;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private DependencyCategory type;
+    private DependencyCategory category;
 }

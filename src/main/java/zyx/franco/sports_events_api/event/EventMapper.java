@@ -7,9 +7,10 @@ public class EventMapper {
 
     public Event toEventEntity(EventDTO eventDTO) {
         if (eventDTO == null)
-            throw new NullPointerException("The eventDTO should not be null");
+            throw new NullPointerException("The event should not be null");
 
         Event event = new Event();
+        event.setId(null);
         event.setName(eventDTO.name());
         event.setStartDate(eventDTO.startDate());
         event.setEndDate(eventDTO.endDate());

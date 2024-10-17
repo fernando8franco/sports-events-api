@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("eventTest")
 class EventControllerTest {
     @Autowired
     EventService eventService;
@@ -150,7 +149,7 @@ class EventControllerTest {
         assertEquals(5, length);
 
         JSONArray names = documentContext.read("$..name");
-        List<String> expectedNames = List.of("Event 4","Event 3","Event 2","Event 1","Event 0");
+        List<String> expectedNames = List.of("Event 4","Event 3","Event 2","Event 10","Event 1");
         assertEquals(expectedNames, names);
     }
 

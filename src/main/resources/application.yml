@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/sports_events_db
+    url: jdbc:postgresql://localhost:5432/sports_events_db?stringtype=unspecified
     username: franco
     password: franco
     driver-class-name: org.postgresql.Driver

@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS t_event;
 DROP TABLE IF EXISTS t_dependency;
-DROP TYPE IF EXISTS category_type;
+DROP TYPE IF EXISTS dependency_category;
 
-CREATE TYPE category_type AS ENUM ('HIGH_SCHOOL', 'UNIVERSITY', 'DIRECTION');
+CREATE TYPE dependency_category AS ENUM ('HIGH_SCHOOL', 'UNIVERSITY', 'DIRECTION');
 
 CREATE TABLE t_event (
     id SERIAL PRIMARY KEY,
@@ -16,5 +16,5 @@ CREATE TABLE t_event (
 CREATE TABLE t_dependency (
     id SERIAL PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
-    category category_type NOT NULL
+    category dependency_category NOT NULL
 );

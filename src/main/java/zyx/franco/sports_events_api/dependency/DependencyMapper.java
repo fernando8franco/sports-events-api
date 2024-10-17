@@ -7,13 +7,13 @@ public class DependencyMapper {
 
     public Dependency toDependencyEntity(DependencyDTO dependencyDTO) {
         if (dependencyDTO == null)
-            throw new NullPointerException("The dependency should not be null");
+            throw new IllegalArgumentException("The dependency should not be null");
 
-        Dependency dependency = new Dependency();
-        dependency.setName(dependencyDTO.name());
-        dependency.setCategory(dependencyDTO.category());
-
-        return dependency;
+        return new Dependency(
+                null,
+                dependencyDTO.name(),
+                dependencyDTO.category()
+        );
     }
 
 }

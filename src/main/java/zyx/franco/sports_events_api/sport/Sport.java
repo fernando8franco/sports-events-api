@@ -1,5 +1,6 @@
 package zyx.franco.sports_events_api.sport;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,20 +20,28 @@ public class Sport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(nullable = false, length = 150)
     private String name;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @ColumnTransformer(write = "?::type_gender")
     private Gender gender;
+
     @Column(nullable = false)
     private Integer numPlayers;
+
     @Column(nullable = false)
     private Integer numExtraPlayers;
+
     @Column(nullable = false)
     private Boolean hasCaptain;
+
     @Column(nullable = false)
     private Boolean isActive;
+
     @ManyToMany(mappedBy = "sport")
+    @JsonManagedReference
     private List<DependencySport> dependenciesSports;
 }

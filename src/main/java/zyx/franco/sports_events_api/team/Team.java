@@ -7,8 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
 import zyx.franco.sports_events_api.event.Event;
+import zyx.franco.sports_events_api.player.Player;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -37,4 +39,7 @@ public class Team {
     @JoinColumn(name = "event_id")
     @JsonBackReference
     private Event event;
+
+    @OneToMany(mappedBy = "team")
+    private List<Player> players;
 }

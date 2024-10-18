@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS t_player;
 DROP TABLE IF EXISTS t_team;
 DROP TABLE IF EXISTS t_event;
 DROP TABLE IF EXISTS t_dependencies_sports;
@@ -31,7 +32,7 @@ CREATE TABLE t_dependency (
 CREATE TABLE t_sport (
     id INTEGER PRIMARY KEY DEFAULT NEXTVAL('t_sport_id_seq'),
     name VARCHAR(150) NOT NULL,
-    gender sport_category NOT NULL,
+    category sport_category NOT NULL,
     num_players INTEGER NOT NULL,
     num_extra_players INTEGER NOT NULL,
     has_captain BOOLEAN NOT NULL,
@@ -64,4 +65,23 @@ CREATE TABLE t_team (
     event_id INTEGER NOT NULL,
     FOREIGN KEY (dependencies_sports_id) REFERENCES t_dependencies_sports(id) ON DELETE CASCADE,
     FOREIGN KEY (event_id) REFERENCES t_event(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_player (
+    id UUID PRIMARY KEY,
+    account_number VARCHAR(10) NOT NULL,
+    first_name VARCHAR(75) NOT NULL,
+    last_name VARCHAR(75) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL,
+    birthday DATE NOT NULL,
+    gender type_gender NOT NULL,
+    photo VARCHAR(150) NOT NULL,
+    is_active BOOLEAN NOT NULL,
+    semester SMALLINT NOT NULL,
+    p_group SMALLINT NOT NULL,
+    is_captain BOOLEAN NOT NULL,
+    team_id BIGINT NOT NULL,
+    UNIQUE(account_number, email),
+    FOREIGN KEY (team_id) REFERENCES t_team(id) ON DELETE CASCADE
 );

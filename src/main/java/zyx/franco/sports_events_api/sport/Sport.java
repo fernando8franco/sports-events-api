@@ -34,7 +34,7 @@ public class Sport {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @ColumnTransformer(write = "?::sport_category")
-    private SportCategory sportCategory;
+    private SportCategory category;
 
     @Column(nullable = false)
     private Integer numPlayers;

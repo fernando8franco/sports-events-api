@@ -13,14 +13,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "t_team")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class PersonInfo {
+public abstract class PersonInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, length = 150, unique = true)
+    @Column(nullable = false, length = 10, unique = true)
     private String accountNumber;
 
     @Column(nullable = false, length = 75)
@@ -29,7 +28,7 @@ public class PersonInfo {
     @Column(nullable = false, length = 75)
     private String last_name;
 
-    @Column(nullable = false, length = 100, unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     private String email;
 
     @Column(nullable = false, length = 15)

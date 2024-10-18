@@ -1,12 +1,16 @@
 package zyx.franco.sports_events_api.dependency_sport;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import zyx.franco.sports_events_api.dependency.Dependency;
 import zyx.franco.sports_events_api.sport.Sport;
+import zyx.franco.sports_events_api.team.Team;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -35,4 +39,8 @@ public class DependencySport {
     @JoinColumn(name = "sport_id")
     @JsonBackReference
     private Sport sport;
+
+    @OneToMany(mappedBy = "dependencySport")
+    @JsonManagedReference
+    private List<Team> teams;
 }

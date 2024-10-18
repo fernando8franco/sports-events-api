@@ -65,14 +65,14 @@ public class EventController {
         if (event == null)
             return ResponseEntity.notFound().build();
 
-        Event updateEvent = new Event(
-                eventId,
-                eventDTO.name(),
-                eventDTO.startDate(),
-                eventDTO.endDate(),
-                eventDTO.insStartDate(),
-                eventDTO.insEndDate()
-        );
+        Event updateEvent = new Event();
+        event.setId(eventId);
+        event.setName(eventDTO.name());
+        event.setStartDate(eventDTO.startDate());
+        event.setEndDate(eventDTO.endDate());
+        event.setInsStartDate(eventDTO.insStartDate());
+        event.setEndDate(eventDTO.insEndDate());
+
         eventService.updateEvent(updateEvent);
 
         return ResponseEntity.noContent().build();

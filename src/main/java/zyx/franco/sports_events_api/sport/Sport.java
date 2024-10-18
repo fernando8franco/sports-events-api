@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnTransformer;
-import zyx.franco.sports_events_api.dependency.Dependency;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
 
 import java.util.List;
@@ -34,8 +33,8 @@ public class Sport {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @ColumnTransformer(write = "?::type_gender")
-    private Gender gender;
+    @ColumnTransformer(write = "?::sport_category")
+    private SportCategory sportCategory;
 
     @Column(nullable = false)
     private Integer numPlayers;

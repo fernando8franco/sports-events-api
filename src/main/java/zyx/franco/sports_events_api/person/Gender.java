@@ -1,4 +1,4 @@
-package zyx.franco.sports_events_api.sport;
+package zyx.franco.sports_events_api.person;
 
 public enum Gender {
     MALE,

@@ -9,11 +9,10 @@ public class DependencyMapper {
         if (dependencyDTO == null)
             throw new IllegalArgumentException("The dependency should not be null");
 
-        return new Dependency(
-                null,
-                dependencyDTO.name(),
-                dependencyDTO.category()
-        );
+        Dependency dependency = new Dependency();
+        dependency.setName(dependencyDTO.name());
+        dependency.setCategory(dependencyDTO.category());
+        return dependency;
     }
 
 }

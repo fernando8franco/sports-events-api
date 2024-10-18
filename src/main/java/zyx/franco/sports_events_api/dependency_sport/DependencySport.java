@@ -15,7 +15,15 @@ import zyx.franco.sports_events_api.sport.Sport;
 @Table(name = "t_dependencies_sports")
 public class DependencySport {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "dependency_sport_seq",
+            sequenceName = "t_dependencies_sports_id_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "dependency_sport_seq"
+    )
     private Integer id;
 
     @ManyToOne

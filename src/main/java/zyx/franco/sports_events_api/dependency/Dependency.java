@@ -17,7 +17,15 @@ import java.util.List;
 @Table(name = "t_dependency")
 public class Dependency {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "dependency_seq",
+            sequenceName = "t_dependency_id_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "dependency_seq"
+    )
     private Integer id;
 
     @Column(nullable = false, length = 150)

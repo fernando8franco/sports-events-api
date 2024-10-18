@@ -1,12 +1,12 @@
-package zyx.franco.sports_events_api.dependency;
+package zyx.franco.sports_events_api.sport;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnTransformer;
+import zyx.franco.sports_events_api.dependency.Dependency;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
-import zyx.franco.sports_events_api.sport.Sport;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "t_dependency")
-public class Dependency {
+@Table(name = "t_sport")
+public class Sport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,8 +23,16 @@ public class Dependency {
     private String name;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @ColumnTransformer(write = "?::dependency_category")
-    private DependencyCategory category;
-    @ManyToMany(mappedBy = "dependency")
+    @ColumnTransformer(write = "?::type_gender")
+    private Gender gender;
+    @Column(nullable = false)
+    private Integer numPlayers;
+    @Column(nullable = false)
+    private Integer numExtraPlayers;
+    @Column(nullable = false)
+    private Boolean hasCaptain;
+    @Column(nullable = false)
+    private Boolean isActive;
+    @ManyToMany(mappedBy = "sport")
     private List<DependencySport> dependenciesSports;
 }

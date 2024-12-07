@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnTransformer;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
+import zyx.franco.sports_events_api.employee.Employee;
 
 import java.util.List;
 
@@ -39,4 +40,8 @@ public class Dependency {
     @ManyToMany(mappedBy = "dependency")
     @JsonManagedReference
     private List<DependencySport> dependenciesSports;
+
+    @OneToMany(mappedBy = "dependency")
+    @JsonManagedReference
+    private List<Employee> employees;
 }

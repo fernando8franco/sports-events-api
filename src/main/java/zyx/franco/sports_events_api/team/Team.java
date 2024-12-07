@@ -1,6 +1,7 @@
 package zyx.franco.sports_events_api.team;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,5 +42,6 @@ public class Team {
     private Event event;
 
     @OneToMany(mappedBy = "team")
+    @JsonManagedReference
     private List<Player> players;
 }

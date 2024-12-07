@@ -101,6 +101,7 @@ CREATE TABLE t_employee (
     photo VARCHAR(150) NOT NULL,
     is_active BOOLEAN NOT NULL,
     role type_role NOT NULL,
+    dependency_id INTEGER NOT NULL,
     UNIQUE(account_number, email),
     FOREIGN KEY (dependency_id) REFERENCES t_dependency(id) ON DELETE CASCADE
 );

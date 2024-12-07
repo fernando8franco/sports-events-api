@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS t_employee;
 DROP TABLE IF EXISTS t_player;
 DROP TABLE IF EXISTS t_team;
 DROP TABLE IF EXISTS t_event;
@@ -8,6 +9,7 @@ DROP TABLE IF EXISTS t_sport;
 DROP TYPE IF EXISTS dependency_category;
 DROP TYPE IF EXISTS sport_category;
 DROP TYPE IF EXISTS type_gender;
+DROP TYPE IF EXISTS type_role;
 
 DROP SEQUENCE IF EXISTS t_dependency_id_seq;
 DROP SEQUENCE IF EXISTS t_sport_id_seq;
@@ -17,6 +19,7 @@ DROP SEQUENCE IF EXISTS t_team_seq;
 CREATE TYPE dependency_category AS ENUM ('HIGH_SCHOOL', 'UNIVERSITY', 'DIRECTION');
 CREATE TYPE sport_category AS ENUM ('MALE', 'FEMALE', 'MIXED');
 CREATE TYPE type_gender AS ENUM ('MALE', 'FEMALE', 'NO_BINARY', 'OTHER');
+CREATE TYPE type_role AS ENUM ('SUPERADMIN', 'ADMIN', 'EMPLOYEE');
 
 CREATE SEQUENCE t_dependency_id_seq INCREMENT 1 START 100;
 CREATE SEQUENCE t_sport_id_seq INCREMENT 1 START 100;
@@ -84,4 +87,20 @@ CREATE TABLE t_player (
     team_id BIGINT NOT NULL,
     UNIQUE(account_number, email),
     FOREIGN KEY (team_id) REFERENCES t_team(id) ON DELETE CASCADE
+);
+
+CREATE TABLE t_employee (
+    id UUID PRIMARY KEY,
+    account_number VARCHAR(10) NOT NULL,
+    first_name VARCHAR(75) NOT NULL,
+    last_name VARCHAR(75) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL,
+    birthday DATE NOT NULL,
+    gender type_gender NOT NULL,
+    photo VARCHAR(150) NOT NULL,
+    is_active BOOLEAN NOT NULL,
+    role type_role NOT NULL,
+    UNIQUE(account_number, email),
+    FOREIGN KEY (dependency_id) REFERENCES t_dependency(id) ON DELETE CASCADE
 );

@@ -2,6 +2,9 @@ package zyx.franco.sports_events_api.dependency;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -16,6 +19,7 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/dependencies")
@@ -38,6 +42,16 @@ public class DependencyController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DependencyDTO>> findAllDependencies(
+            @PageableDefault(page = 0, size = 5) Pageable pageable,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "true") boolean ascending
+    ) {
+        Page<DependencyDTO> dependencyDTOS = dependencyService.findAllDependencies(pageable, sortBy, ascending);
+        return ResponseEntity.ok(dependencyDTOS.getContent());
     }
 
     @GetMapping("/{dependencyId}")

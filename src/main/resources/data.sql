@@ -11,4 +11,10 @@ VALUES
 ('Event 9', '2024-09-18', '2024-09-20', '2024-09-18', '2024-09-20'),
 ('Event 10', '2024-10-05', '2024-10-07', '2024-10-05', '2024-10-07');
 
+INSERT INTO t_dependency (name, category) VALUES ('Universidad Autonoma del Estado de Hidalgo', 'UNIVERSITY');
 INSERT INTO t_dependency (name, category) VALUES ('University of Mexico', 'UNIVERSITY');
+INSERT INTO t_dependency (name, category) VALUES ('High School no. 2', 'HIGH_SCHOOL');
+INSERT INTO t_dependency (name, category) VALUES ('University of Michigan', 'UNIVERSITY');
+INSERT INTO t_dependency (name, category) VALUES ('University of Toledo', 'UNIVERSITY');
+INSERT INTO t_dependency (name, category) VALUES ('HighSchool no. 1', 'UNIVERSITY');
+INSERT INTO t_dependency (name, category) VALUES ('Computer Center', 'DIRECTION');

@@ -10,6 +10,7 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 
 import java.net.URI;
 import java.util.Arrays;
@@ -40,13 +41,15 @@ public class DependencyController {
     }
 
     @GetMapping("/{dependencyId}")
-    public ResponseEntity<Dependency> findDependencyById(@PathVariable Integer dependencyId) {
-        Dependency dependency = dependencyService.findById(dependencyId);
+    public ResponseEntity<DependencyDTO> findDependencyById(@PathVariable Integer dependencyId) {
+        DependencyDTO dependency = dependencyService.findById(dependencyId);
 
         return (dependency != null)
                 ? ResponseEntity.ok(dependency)
                 : ResponseEntity.notFound().build();
     }
+
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
@@ -74,5 +77,10 @@ public class DependencyController {
                 String.format("Invalid enum value: '%s'. The value must be one of: %s.",
                 ifx.getValue(), Arrays.toString(ifx.getTargetType().getEnumConstants()))
         ));
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        return ResponseEntity.badRequest().body(Collections.singletonMap("message", ex.getMessage()));
     }
 }

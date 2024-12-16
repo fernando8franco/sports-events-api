@@ -1,7 +1,7 @@
 package zyx.franco.sports_events_api.dependency;
 
-import jakarta.validation.constraints.*;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record DependencyDTO(
         @Size(min = 5, max = 150, message = "The dependency name must be between 5 and 150 characters")

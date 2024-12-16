@@ -1,11 +1,11 @@
 package zyx.franco.sports_events_api.dependency;
 
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DependencyService {

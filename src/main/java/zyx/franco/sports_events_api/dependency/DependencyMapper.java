@@ -7,7 +7,7 @@ public class DependencyMapper {
 
     public Dependency toDependencyEntity(DependencyDTO dependencyDTO) {
         if (dependencyDTO == null)
-            throw new IllegalArgumentException("The dependencyDTO should not be null");
+            throw new IllegalArgumentException("The dependency should not be null");
 
         Dependency dependency = new Dependency();
         dependency.setName(dependencyDTO.name());
@@ -20,6 +20,17 @@ public class DependencyMapper {
             throw new IllegalArgumentException("The dependency should not be null");
 
         return new DependencyDTO(
+                dependency.getName(),
+                dependency.getCategory()
+        );
+    }
+
+    public static DependencyResponseDTO toDependencyResponseDTO(Dependency dependency) {
+        if (dependency == null)
+            throw new IllegalArgumentException("The dependency should not be null");
+
+        return new DependencyResponseDTO(
+                dependency.getId(),
                 dependency.getName(),
                 dependency.getCategory()
         );

@@ -23,20 +23,20 @@ public class DependencyService {
         return dependencySaved.getId();
     }
 
-    public Page<DependencyDTO> findAllDependencies(Pageable pageable, String sortBy, boolean ascending) {
+    public Page<DependencyResponseDTO> findAllDependencies(Pageable pageable, String sortBy, boolean ascending) {
         Sort sort = ascending
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
 
         pageable = PageRequest.of(
-                pageable.getPageNumber(),
+                pageable.getPageNumber() - 1,
                 pageable.getPageSize(),
                 sort
         );
 
         Page<Dependency> dependencyPage = dependencyRepository.findAll(pageable);
 
-        return dependencyPage.map(DependencyMapper::toDependencyDTO);
+        return dependencyPage.map(DependencyMapper::toDependencyResponseDTO);
     }
 
     public DependencyDTO findById(Integer id) {

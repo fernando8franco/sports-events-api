@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -56,9 +57,7 @@ public class DependencyController {
     public ResponseEntity<DependencyDTO> findDependencyById(@PathVariable Integer dependencyId) {
         DependencyDTO dependency = dependencyService.findById(dependencyId);
 
-        return (dependency != null)
-                ? ResponseEntity.ok(dependency)
-                : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(dependency);
     }
 
     @PutMapping("/{dependencyId}")
@@ -66,10 +65,7 @@ public class DependencyController {
             @PathVariable Integer dependencyId,
             @RequestBody DependencyDTO dependencyRequest
     ) {
-        DependencyDTO dependencyDTO = dependencyService.findById(dependencyId);
-
-        if (dependencyDTO == null)
-            return ResponseEntity.notFound().build();
+        dependencyService.findById(dependencyId);
 
         Dependency dependency = new Dependency();
         dependency.setId(dependencyId);
@@ -77,6 +73,17 @@ public class DependencyController {
         dependency.setCategory(dependencyRequest.category());
 
         dependencyService.updateDependency(dependency);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{dependencyId}")
+    public ResponseEntity<Void> deleteDependency(
+            @PathVariable Integer dependencyId
+    ) {
+        dependencyService.findById(dependencyId);
+
+        dependencyService.deleteDependency(dependencyId);
 
         return ResponseEntity.noContent().build();
     }
@@ -111,6 +118,6 @@ public class DependencyController {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        return ResponseEntity.badRequest().body(Collections.singletonMap("message", ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", ex.getMessage()));
     }
 }

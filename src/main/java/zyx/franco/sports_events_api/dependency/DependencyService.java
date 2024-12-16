@@ -48,4 +48,8 @@ public class DependencyService {
     public void updateDependency(Dependency dependency) {
         dependencyRepository.save(dependency);
     }
+
+    public void deleteDependency(Integer id) {
+        dependencyRepository.deleteById(id);
+    }
 }

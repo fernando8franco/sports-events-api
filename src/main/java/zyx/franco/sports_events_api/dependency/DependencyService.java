@@ -44,4 +44,8 @@ public class DependencyService {
                 .map(DependencyMapper::toDependencyDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Dependency not found with id: " + id));
     }
+
+    public void updateDependency(Dependency dependency) {
+        dependencyRepository.save(dependency);
+    }
 }

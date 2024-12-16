@@ -9,6 +9,7 @@ import zyx.franco.sports_events_api.employee.Employee;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 @Table(name = "t_dependency")
 public class Dependency {
     @Id

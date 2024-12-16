@@ -61,7 +61,25 @@ public class DependencyController {
                 : ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/{dependencyId}")
+    public ResponseEntity<Void> updateDependency(
+            @PathVariable Integer dependencyId,
+            @RequestBody DependencyDTO dependencyRequest
+    ) {
+        DependencyDTO dependencyDTO = dependencyService.findById(dependencyId);
 
+        if (dependencyDTO == null)
+            return ResponseEntity.notFound().build();
+
+        Dependency dependency = new Dependency();
+        dependency.setId(dependencyId);
+        dependency.setName(dependencyRequest.name());
+        dependency.setCategory(dependencyRequest.category());
+
+        dependencyService.updateDependency(dependency);
+
+        return ResponseEntity.noContent().build();
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record SportDTO(
-        @Size(min = 1, max = 150, message = "The dependency name must be between 5 and 150 characters")
+        @Size(min = 1, max = 150, message = "The sport name must be between 1 and 150 characters")
         String name,
         @NotNull(message = "The category must not be null")
         SportCategory category,

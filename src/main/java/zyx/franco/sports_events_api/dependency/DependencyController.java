@@ -58,10 +58,8 @@ public class DependencyController {
     ) {
         dependencyService.findById(dependencyId);
 
-        Dependency updateDependency = new Dependency();
+        Dependency updateDependency = DependencyMapper.toDependencyEntity(dependencyDTO);
         updateDependency.setId(dependencyId);
-        updateDependency.setName(dependencyDTO.name());
-        updateDependency.setCategory(dependencyDTO.category());
 
         dependencyService.updateDependency(updateDependency);
 

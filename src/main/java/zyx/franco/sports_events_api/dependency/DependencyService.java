@@ -10,15 +10,13 @@ import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 @Service
 public class DependencyService {
     private final DependencyRepository dependencyRepository;
-    private final DependencyMapper dependencyMapper;
 
     public DependencyService(DependencyRepository dependencyRepository, DependencyMapper dependencyMapper) {
         this.dependencyRepository = dependencyRepository;
-        this.dependencyMapper = dependencyMapper;
     }
 
     public Integer saveDependency(DependencyDTO dependencyDTO) {
-        Dependency dependency = dependencyMapper.toDependencyEntity(dependencyDTO);
+        Dependency dependency = DependencyMapper.toDependencyEntity(dependencyDTO);
         Dependency dependencySaved = dependencyRepository.save(dependency);
         return dependencySaved.getId();
     }

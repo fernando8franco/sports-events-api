@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventMapper {
 
-    public Event toEventEntity(EventDTO eventDTO) {
+    public static Event toEventEntity(EventDTO eventDTO) {
         if (eventDTO == null)
             throw new IllegalArgumentException("The event should not be null");
 

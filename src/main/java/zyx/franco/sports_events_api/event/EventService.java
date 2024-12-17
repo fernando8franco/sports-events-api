@@ -10,15 +10,13 @@ import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 @Service
 public class EventService {
     private final EventRepository eventRepository;
-    private final EventMapper eventMapper;
 
     public EventService(EventRepository eventRepository, EventMapper eventMapper) {
         this.eventRepository = eventRepository;
-        this.eventMapper = eventMapper;
     }
 
     public Integer saveEvent(EventDTO eventDTO) {
-        Event event = eventMapper.toEventEntity(eventDTO);
+        Event event = EventMapper.toEventEntity(eventDTO);
         Event eventSaved = eventRepository.save(event);
         return eventSaved.getId();
     }

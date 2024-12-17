@@ -55,13 +55,8 @@ public class EventController {
     ) {
         eventService.findById(eventId);
 
-        Event updateEvent = new Event();
+        Event updateEvent = EventMapper.toEventEntity(eventDTO);
         updateEvent.setId(eventId);
-        updateEvent.setName(eventDTO.name());
-        updateEvent.setStartDate(eventDTO.startDate());
-        updateEvent.setEndDate(eventDTO.endDate());
-        updateEvent.setInsStartDate(eventDTO.insStartDate());
-        updateEvent.setInsEndDate(eventDTO.insEndDate());
 
         eventService.updateEvent(updateEvent);
 

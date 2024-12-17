@@ -54,7 +54,7 @@ public class DependencyController {
     @PutMapping("/{dependencyId}")
     public ResponseEntity<Void> updateDependency(
             @PathVariable Integer dependencyId,
-            @RequestBody DependencyDTO dependencyDTO
+            @Valid @RequestBody DependencyDTO dependencyDTO
     ) {
         dependencyService.findById(dependencyId);
 

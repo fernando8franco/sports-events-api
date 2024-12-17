@@ -51,7 +51,7 @@ public class EventController {
     @PutMapping("/{eventId}")
     public ResponseEntity<Void> updateEvent(
             @PathVariable Integer eventId,
-            @RequestBody EventDTO eventDTO
+            @Valid @RequestBody EventDTO eventDTO
     ) {
         eventService.findById(eventId);
 

@@ -105,3 +105,35 @@ CREATE TABLE t_employee (
     UNIQUE(account_number, email),
     FOREIGN KEY (dependency_id) REFERENCES t_dependency(id) ON DELETE CASCADE
 );
+
+CREATE OR REPLACE FUNCTION insert_sports_for_new_dependency()
+RETURNS TRIGGER AS '
+BEGIN
+    INSERT INTO t_dependencies_sports (dependency_id, sport_id)
+    SELECT NEW.id, s.id
+    FROM t_sport s;
+
+    RETURN NEW;
+END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_insert_dependency_sport
+AFTER INSERT ON t_dependency
+FOR EACH ROW
+EXECUTE FUNCTION insert_sports_for_new_dependency();
+
+CREATE OR REPLACE FUNCTION insert_dependencies_for_new_sport()
+RETURNS TRIGGER AS '
+BEGIN
+    INSERT INTO t_dependencies_sports (dependency_id, sport_id)
+    SELECT d.id, NEW.id
+    FROM t_dependency d;
+
+    RETURN NEW;
+END;
+' LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_insert_dependencies_for_new_sport
+AFTER INSERT ON t_sport
+FOR EACH ROW
+EXECUTE FUNCTION insert_dependencies_for_new_sport();

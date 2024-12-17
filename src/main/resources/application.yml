@@ -2,7 +2,7 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
   datasource:
-    url: jdbc:postgresql://localhost:5432/sports_events_db?stringtype=unspecified
+    url: jdbc:postgresql://localhost:5432/sports_events_db
     username: franco
     password: franco
     driver-class-name: org.postgresql.Driver
@@ -14,3 +14,4 @@ spring:
   sql:
     init:
       mode: always
+      platform: postgresql

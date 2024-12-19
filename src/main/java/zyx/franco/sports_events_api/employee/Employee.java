@@ -1,6 +1,6 @@
 package zyx.franco.sports_events_api.employee;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnTransformer;
 import zyx.franco.sports_events_api.dependency.Dependency;
@@ -21,7 +21,7 @@ public class Employee extends PersonInfo {
 
     @ManyToOne
     @JoinColumn(name = "dependency_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Dependency dependency;
 
     public Employee() {

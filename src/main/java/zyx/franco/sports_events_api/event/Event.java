@@ -1,6 +1,6 @@
 package zyx.franco.sports_events_api.event;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import zyx.franco.sports_events_api.team.Team;
 
@@ -31,7 +31,7 @@ public class Event {
     private LocalDate insEndDate;
 
     @OneToMany(mappedBy = "event")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Team> teams;
 
     public Event() {

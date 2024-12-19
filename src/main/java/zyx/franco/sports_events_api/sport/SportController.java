@@ -35,12 +35,12 @@ public class SportController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SportResponseDTO>> findAllSports(
+    public ResponseEntity<List<Sport>> findAllSports(
             @PageableDefault(page = 1, size = 5) Pageable pageable,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending
     ) {
-        Page<SportResponseDTO> sportResponseDTOPage = sportService.findAllSports(
+        Page<Sport> sportResponseDTOPage = sportService.findAllSports(
                 pageable,
                 sortBy,
                 ascending

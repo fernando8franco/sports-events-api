@@ -1,6 +1,6 @@
 package zyx.franco.sports_events_api.sport;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnTransformer;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
@@ -44,7 +44,7 @@ public class Sport {
     private Boolean isActive;
 
     @ManyToMany(mappedBy = "sport")
-    @JsonManagedReference
+    @JsonBackReference
     private List<DependencySport> dependenciesSports;
 
     public Sport() {

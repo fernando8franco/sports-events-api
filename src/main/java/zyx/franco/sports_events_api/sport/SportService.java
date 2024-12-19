@@ -21,7 +21,7 @@ public class SportService {
         return sportSaved.getId();
     }
 
-    public Page<SportResponseDTO> findAllSports(Pageable pageable, String sortBy, boolean ascending) {
+    public Page<Sport> findAllSports(Pageable pageable, String sortBy, boolean ascending) {
         Sort sort = ascending
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
@@ -34,7 +34,8 @@ public class SportService {
 
         Page<Sport> sportPage = sportRepository.findAll(pageable);
 
-        return sportPage.map(SportMapper::toSportResponseDTO);
+//        return sportPage.map(SportMapper::toSportResponseDTO);
+        return sportRepository.findAll(pageable);
     }
 
     public SportDTO findSportById(Integer id) {

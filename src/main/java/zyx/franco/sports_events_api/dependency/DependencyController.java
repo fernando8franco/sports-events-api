@@ -35,12 +35,12 @@ public class DependencyController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DependencyResponseDTO>> findAllDependencies(
+    public ResponseEntity<List<Dependency>> findAllDependencies(
             @PageableDefault(page = 1, size = 5) Pageable pageable,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending
     ) {
-        Page<DependencyResponseDTO> dependencyResponseDTOS = dependencyService.findAllDependencies(pageable, sortBy, ascending);
+        Page<Dependency> dependencyResponseDTOS = dependencyService.findAllDependencies(pageable, sortBy, ascending);
         return ResponseEntity.ok(dependencyResponseDTOS.getContent());
     }
 

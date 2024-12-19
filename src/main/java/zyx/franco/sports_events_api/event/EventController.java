@@ -39,12 +39,12 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EventResponseDTO>> findAllEvents(
+    public ResponseEntity<List<Event>> findAllEvents(
             @PageableDefault(page = 1, size = 5) Pageable pageable,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending
     ) {
-        Page<EventResponseDTO> pageEvents = eventService.findAllEvents(pageable, sortBy, ascending);
+        Page<Event> pageEvents = eventService.findAllEvents(pageable, sortBy, ascending);
         return ResponseEntity.ok(pageEvents.getContent());
     }
 

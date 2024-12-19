@@ -1,8 +1,5 @@
 package zyx.franco.sports_events_api.sport;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public class SportMapper {
 
     public static Sport toSportEntity(SportDTO sportDTO) {
@@ -34,18 +31,4 @@ public class SportMapper {
         );
     }
 
-    public static SportResponseDTO toSportResponseDTO(Sport sport) {
-        if (sport == null)
-            throw new IllegalArgumentException("The sport should not be null");
-
-        return new SportResponseDTO(
-                sport.getId(),
-                sport.getName(),
-                sport.getCategory(),
-                sport.getNumPlayers(),
-                sport.getNumExtraPlayers(),
-                sport.getHasCaptain(),
-                sport.getActive()
-        );
-    }
 }

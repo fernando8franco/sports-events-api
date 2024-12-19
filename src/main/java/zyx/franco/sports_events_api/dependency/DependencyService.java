@@ -11,7 +11,7 @@ import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 public class DependencyService {
     private final DependencyRepository dependencyRepository;
 
-    public DependencyService(DependencyRepository dependencyRepository, DependencyMapper dependencyMapper) {
+    public DependencyService(DependencyRepository dependencyRepository) {
         this.dependencyRepository = dependencyRepository;
     }
 
@@ -21,7 +21,7 @@ public class DependencyService {
         return dependencySaved.getId();
     }
 
-    public Page<DependencyResponseDTO> findAllDependencies(Pageable pageable, String sortBy, boolean ascending) {
+    public Page<Dependency> findAllDependencies(Pageable pageable, String sortBy, boolean ascending) {
         Sort sort = ascending
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
@@ -32,9 +32,7 @@ public class DependencyService {
                 sort
         );
 
-        Page<Dependency> dependencyPage = dependencyRepository.findAll(pageable);
-
-        return dependencyPage.map(DependencyMapper::toDependencyResponseDTO);
+        return dependencyRepository.findAll(pageable);
     }
 
     public DependencyDTO findById(Integer id) {

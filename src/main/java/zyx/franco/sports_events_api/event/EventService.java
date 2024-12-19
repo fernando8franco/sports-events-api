@@ -11,7 +11,7 @@ import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 public class EventService {
     private final EventRepository eventRepository;
 
-    public EventService(EventRepository eventRepository, EventMapper eventMapper) {
+    public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
@@ -21,7 +21,7 @@ public class EventService {
         return eventSaved.getId();
     }
 
-    public Page<EventResponseDTO> findAllEvents(Pageable pageable, String sortBy, boolean ascending) {
+    public Page<Event> findAllEvents(Pageable pageable, String sortBy, boolean ascending) {
         Sort sort = ascending
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();
@@ -32,9 +32,7 @@ public class EventService {
                 sort
         );
 
-        Page<Event> eventPage = eventRepository.findAll(pageable);
-
-        return eventPage.map(EventMapper::toEventResponseDTO);
+        return eventRepository.findAll(pageable);
     }
 
     public EventDTO findById(Integer id) {

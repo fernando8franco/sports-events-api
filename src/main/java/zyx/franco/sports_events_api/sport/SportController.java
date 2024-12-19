@@ -40,12 +40,12 @@ public class SportController {
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending
     ) {
-        Page<Sport> sportResponseDTOPage = sportService.findAllSports(
+        Page<Sport> sportPage = sportService.findAllSports(
                 pageable,
                 sortBy,
                 ascending
         );
-        return ResponseEntity.ok(sportResponseDTOPage.getContent());
+        return ResponseEntity.ok(sportPage.getContent());
     }
 
     @GetMapping("/{sportId}")

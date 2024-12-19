@@ -32,9 +32,6 @@ public class SportService {
                 sort
         );
 
-        Page<Sport> sportPage = sportRepository.findAll(pageable);
-
-//        return sportPage.map(SportMapper::toSportResponseDTO);
         return sportRepository.findAll(pageable);
     }
 

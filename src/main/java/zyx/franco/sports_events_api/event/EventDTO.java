@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public record EventDTO(
+        @NotNull(message = "The name must not be null")
         @Size(min = 5, max = 150, message = "The event name must be between 5 and 200 characters")
         String name,
         @NotNull(message = "The start date must not be null")

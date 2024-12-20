@@ -13,7 +13,7 @@ public record SportDTO(
         SportCategory category,
         @NotNull(message = "The number of players must not be null")
         @Max(value = 500, message = "The number of players must be in range of 0-500")
-        @Min(value = 0, message = "The number of players must be in range of 0-500")
+        @Min(value = 1, message = "The number of players must be in range of 1-500")
         Integer numPlayers,
         @NotNull(message = "The extra number of players must not be null")
         @Max(value = 500, message = "The extra number of players must be in range of 0-500")

@@ -91,7 +91,7 @@ CREATE TABLE t_player (
 
 CREATE TABLE t_employee (
     id UUID PRIMARY KEY,
-    account_number VARCHAR(10) NOT NULL,
+    account_number VARCHAR(8) NOT NULL,
     first_name VARCHAR(75) NOT NULL,
     last_name VARCHAR(75) NOT NULL,
     email VARCHAR(50) NOT NULL,

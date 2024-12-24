@@ -25,21 +25,21 @@ public record EmployeeDTO(
 
         @NotEmpty(message = "The phone number must not be empty")
         @Size(max = 15, message = "The phone number must be 15 characters max")
-        String phone_number,
+        String phoneNumber,
 
-        @NotEmpty(message = "The birthday must not be empty")
+        @NotNull(message = "The birthday must not be null")
         LocalDate birthday,
 
-        @NotEmpty(message = "The gender must not be empty")
+        @NotNull(message = "The gender must not be null")
         Gender gender,
 
         @NotNull(message = "The is active must not be null")
         Boolean isActive,
 
-        @NotEmpty(message = "The role must not be empty")
+        @NotNull(message = "The role must not be null")
         Role role,
 
-        @NotEmpty(message = "The dependency id must not be empty")
+        @NotNull(message = "The dependency id must not be null")
         @Positive(message = "The dependency id must positive number")
         @Max(value = Integer.MAX_VALUE, message = "The dependency id must not be greater than " + Integer.MAX_VALUE)
         Integer dependencyId

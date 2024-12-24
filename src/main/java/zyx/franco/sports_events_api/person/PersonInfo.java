@@ -27,7 +27,7 @@ public abstract class PersonInfo {
     private String email;
 
     @Column(nullable = false, length = 15)
-    private String phone_number;
+    private String phoneNumber;
 
     @Column(nullable = false)
     private LocalDate birthday;
@@ -46,13 +46,13 @@ public abstract class PersonInfo {
     public PersonInfo() {
     }
 
-    public PersonInfo(UUID id, String accountNumber, String firstName, String last_name, String email, String phone_number, LocalDate birthday, Gender gender, String photo, Boolean isActive) {
+    public PersonInfo(UUID id, String accountNumber, String firstName, String last_name, String email, String phoneNumber, LocalDate birthday, Gender gender, String photo, Boolean isActive) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.firstName = firstName;
         this.last_name = last_name;
         this.email = email;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.birthday = birthday;
         this.gender = gender;
         this.photo = photo;
@@ -100,11 +100,11 @@ public abstract class PersonInfo {
     }
 
     public String getPhone_number() {
-        return phone_number;
+        return phoneNumber;
     }
 
     public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+        this.phoneNumber = phone_number;
     }
 
     public LocalDate getBirthday() {
@@ -144,12 +144,12 @@ public abstract class PersonInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonInfo that = (PersonInfo) o;
-        return Objects.equals(id, that.id) && Objects.equals(accountNumber, that.accountNumber) && Objects.equals(firstName, that.firstName) && Objects.equals(last_name, that.last_name) && Objects.equals(email, that.email) && Objects.equals(phone_number, that.phone_number) && Objects.equals(birthday, that.birthday) && gender == that.gender && Objects.equals(photo, that.photo) && Objects.equals(isActive, that.isActive);
+        return Objects.equals(id, that.id) && Objects.equals(accountNumber, that.accountNumber) && Objects.equals(firstName, that.firstName) && Objects.equals(last_name, that.last_name) && Objects.equals(email, that.email) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(birthday, that.birthday) && gender == that.gender && Objects.equals(photo, that.photo) && Objects.equals(isActive, that.isActive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, accountNumber, firstName, last_name, email, phone_number, birthday, gender, photo, isActive);
+        return Objects.hash(id, accountNumber, firstName, last_name, email, phoneNumber, birthday, gender, photo, isActive);
     }
 
     @Override
@@ -160,7 +160,7 @@ public abstract class PersonInfo {
                 ", firstName='" + firstName + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
-                ", phone_number='" + phone_number + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", birthday=" + birthday +
                 ", gender=" + gender +
                 ", photo='" + photo + '\'' +

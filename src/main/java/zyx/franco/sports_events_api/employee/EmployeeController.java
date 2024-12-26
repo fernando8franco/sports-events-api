@@ -7,6 +7,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import zyx.franco.sports_events_api.dependency.DependencyDTO;
 
 import java.net.URI;
 import java.util.List;
@@ -46,9 +47,21 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<Employee> findEmployeeById(@PathVariable UUID employeeId) {
+    public ResponseEntity<Employee> findEmployeeById(
+            @PathVariable UUID employeeId
+    ) {
         Employee employee = employeeService.findEmployeeById(employeeId);
 
         return ResponseEntity.ok(employee);
+    }
+
+    @PutMapping("/{employeeId}")
+    public ResponseEntity<Void> updateEmployee(
+            @PathVariable UUID employeeId,
+            @Valid @RequestBody EmployeeDTO employeeDTO
+    ) {
+        employeeService.updateEmployee(employeeId, employeeDTO);
+
+        return ResponseEntity.noContent().build();
     }
 }

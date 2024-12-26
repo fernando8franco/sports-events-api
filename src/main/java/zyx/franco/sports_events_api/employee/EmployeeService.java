@@ -48,4 +48,16 @@ public class EmployeeService {
         return employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
     }
+
+    public void updateEmployee(UUID employeeId, EmployeeDTO employeeDTO) {
+        findEmployeeById(employeeId);
+
+        Dependency dependency = dependencyRepository.findById(employeeDTO.dependencyId())
+                .orElseThrow(() -> new ResourceNotFoundException("Dependency not found with id: " + employeeDTO.dependencyId()));
+
+        Employee updateEmployee = EmployeeMapper.toEmployeeEntity(employeeDTO, dependency);
+        updateEmployee.setId(employeeId);
+
+        employeeRepository.save(updateEmployee);
+    }
 }

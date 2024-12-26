@@ -43,4 +43,9 @@ public class EmployeeService {
 
         return employeeRepository.findAll(pageable);
     }
+
+    public Employee findEmployeeById(UUID id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
+    }
 }

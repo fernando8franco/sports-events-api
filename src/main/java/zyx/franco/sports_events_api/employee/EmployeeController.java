@@ -44,4 +44,11 @@ public class EmployeeController {
         Page<Employee> employees = employeeService.findAllEmployees(pageable, sortBy, ascending);
         return ResponseEntity.ok(employees.getContent());
     }
+
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<Employee> findEmployeeById(@PathVariable UUID employeeId) {
+        Employee employee = employeeService.findEmployeeById(employeeId);
+
+        return ResponseEntity.ok(employee);
+    }
 }

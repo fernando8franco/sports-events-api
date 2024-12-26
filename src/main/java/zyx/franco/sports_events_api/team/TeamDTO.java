@@ -1,9 +1,8 @@
 package zyx.franco.sports_events_api.team;
 
 import jakarta.validation.constraints.*;
-import zyx.franco.sports_events_api.player.Player;
+import zyx.franco.sports_events_api.player.PlayerDTO;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public record TeamDTO(
@@ -22,6 +21,6 @@ public record TeamDTO(
         Integer eventId,
 
         @NotEmpty(message = "The players must not be null")
-        List<Player> players
+        List<PlayerDTO> players
 ) {
 }

@@ -24,7 +24,7 @@ public class TeamMapper {
                 isActive,
                 dependencySport,
                 event,
-                teamDTO.players()
+                null
         );
     }
 }

@@ -15,6 +15,15 @@ import java.util.Objects;
 @Table(name = "t_team")
 public class Team {
     @Id
+    @SequenceGenerator(
+            name = "team_seq",
+            sequenceName = "t_team_seq",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "team_seq"
+    )
     private Long id;
 
     @Column(nullable = false, length = 150)

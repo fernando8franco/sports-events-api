@@ -60,4 +60,10 @@ public class EmployeeService {
 
         employeeRepository.save(updateEmployee);
     }
+
+    public void deleteEmployee(UUID employeeId) {
+        findEmployeeById(employeeId);
+
+        employeeRepository.deleteById(employeeId);
+    }
 }

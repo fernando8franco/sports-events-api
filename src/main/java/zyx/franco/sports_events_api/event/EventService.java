@@ -41,6 +41,11 @@ public class EventService {
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
     }
 
+    public Event findEventById(Integer id) {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
+    }
+
     public void updateEvent(Event event) {
         eventRepository.save(event);
     }

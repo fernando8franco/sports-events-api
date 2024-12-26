@@ -43,3 +43,13 @@ INSERT INTO t_employee (
     (gen_random_uuid(), '001237', 'Bob', 'Johnson', 'bob.johnson@example.com', '1234567893', '1985-11-05', 'MALE', '', TRUE, 'EMPLOYEE', 103),
     (gen_random_uuid(), '001238', 'Charlie', 'Davis', 'charlie.davis@example.com', '1234567894', '1995-07-18', 'MALE', '', TRUE, 'EMPLOYEE', 104);
 
+INSERT INTO t_team (
+    name, record_date, is_active, dependencies_sports_id, event_id
+) VALUES
+    ('Team Alpha', CURRENT_DATE, true, 1, 1);
+
+INSERT INTO t_player (
+    id, account_number, first_name, last_name, email, phone_number, birthday, gender, photo, is_active, semester, p_group, is_captain, team_id
+) VALUES
+    (gen_random_uuid(), '1234567890', 'John', 'Doe', 'john.doe@email.com', '123-456-7890', '2000-01-01', 'MALE', 'path/to/photo.jpg', true, 1, 1, false, 1);
+

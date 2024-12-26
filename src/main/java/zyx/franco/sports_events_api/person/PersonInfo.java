@@ -14,7 +14,7 @@ public abstract class PersonInfo {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, length = 8, unique = true)
+    @Column(nullable = false, length = 6, unique = true)
     private String accountNumber;
 
     @Column(nullable = false, length = 75)

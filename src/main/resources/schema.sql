@@ -85,13 +85,14 @@ CREATE TABLE t_player (
     p_group SMALLINT NOT NULL,
     is_captain BOOLEAN NOT NULL,
     team_id BIGINT NOT NULL,
-    UNIQUE(account_number, email),
+    UNIQUE(account_number),
+    UNIQUE(email),
     FOREIGN KEY (team_id) REFERENCES t_team(id) ON DELETE CASCADE
 );
 
 CREATE TABLE t_employee (
     id UUID PRIMARY KEY,
-    account_number VARCHAR(8) NOT NULL,
+    account_number VARCHAR(6) NOT NULL,
     first_name VARCHAR(75) NOT NULL,
     last_name VARCHAR(75) NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -102,7 +103,8 @@ CREATE TABLE t_employee (
     is_active BOOLEAN NOT NULL,
     role type_role NOT NULL,
     dependency_id INTEGER NOT NULL,
-    UNIQUE(account_number, email),
+    UNIQUE(account_number),
+    UNIQUE(email),
     FOREIGN KEY (dependency_id) REFERENCES t_dependency(id) ON DELETE CASCADE
 );
 

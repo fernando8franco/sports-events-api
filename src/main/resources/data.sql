@@ -33,3 +33,13 @@ VALUES
     ('Handball', 'FEMALE', 7, 2, TRUE, TRUE),
     ('Badminton', 'FEMALE', 1, 0, FALSE, TRUE),
     ('Table Tennis', 'MALE', 1, 0, FALSE, TRUE);
+
+INSERT INTO t_employee (
+    id, account_number, first_name, last_name, email, phone_number, birthday, gender, photo, is_active, role, dependency_id
+) VALUES
+    (gen_random_uuid(), '352761', 'Fernando', 'Franco', 'franco@example.com', '1234567890', '1990-01-15', 'MALE', '', TRUE, 'SUPERADMIN', 101),
+    (gen_random_uuid(), '001235', 'Jane', 'Smith', 'jane.smith@example.com', '1234567891', '1992-03-22', 'FEMALE', '', TRUE, 'ADMIN', 102),
+    (gen_random_uuid(), '001236', 'Alice', 'Brown', 'alice.brown@example.com', '1234567892', '1988-06-10', 'FEMALE', '', TRUE, 'EMPLOYEE', 100),
+    (gen_random_uuid(), '001237', 'Bob', 'Johnson', 'bob.johnson@example.com', '1234567893', '1985-11-05', 'MALE', '', TRUE, 'EMPLOYEE', 103),
+    (gen_random_uuid(), '001238', 'Charlie', 'Davis', 'charlie.davis@example.com', '1234567894', '1995-07-18', 'MALE', '', TRUE, 'EMPLOYEE', 104);
+

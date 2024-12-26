@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public record EmployeeDTO(
         @NotNull(message = "The name must not be null")
-        @Size(min = 8, max = 8, message = "The account number must be 8 characters")
+        @Size(min = 6, max = 6, message = "The account number must be 8 characters")
         String accountNumber,
 
         @NotEmpty(message = "The first name must not be empty")

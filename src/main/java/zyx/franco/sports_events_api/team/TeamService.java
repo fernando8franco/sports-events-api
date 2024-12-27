@@ -2,10 +2,12 @@ package zyx.franco.sports_events_api.team;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
 import zyx.franco.sports_events_api.dependency_sport.DependencySportService;
 import zyx.franco.sports_events_api.event.Event;
 import zyx.franco.sports_events_api.event.EventService;
+import zyx.franco.sports_events_api.exceptions.InvalidTeamSizeException;
 import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 import zyx.franco.sports_events_api.player.Player;
 import zyx.franco.sports_events_api.player.PlayerMapper;
@@ -18,20 +20,31 @@ import java.util.List;
 @Service
 public class TeamService {
     private final TeamRepository teamRepository;
-    private final PlayerRepository playerRepository;
     private final DependencySportService dependencySportService;
     private final EventService eventService;
+    private final PlayerService playerService;
 
-    public TeamService(TeamRepository teamRepository, PlayerRepository playerRepository, DependencySportService dependencySportService, EventService eventService) {
+    public TeamService(TeamRepository teamRepository, PlayerRepository playerRepository, DependencySportService dependencySportService, EventService eventService, PlayerService playerService) {
         this.teamRepository = teamRepository;
-        this.playerRepository = playerRepository;
         this.dependencySportService = dependencySportService;
         this.eventService = eventService;
+        this.playerService = playerService;
     }
 
     @Transactional
     public Long saveTeam(TeamDTO teamDTO) {
         DependencySport dependencySport = dependencySportService.findDependencyServiceById(teamDTO.dependencySportId());
+
+        int numPlayers = dependencySport.getSport().getNumPlayers();
+        int numExtraPlayers = dependencySport.getSport().getNumExtraPlayers();
+        int totalPlayers = teamDTO.players().size();
+
+        if (totalPlayers < numPlayers || totalPlayers > numPlayers + numExtraPlayers)
+            throw new InvalidTeamSizeException("The number of players in the team is invalid. Expected between "
+                    + numPlayers + " and "
+                    + (numPlayers + numExtraPlayers)
+                    + ", but got " + totalPlayers);
+
         Event event = eventService.findEventById(teamDTO.eventId());
 
         Team team = TeamMapper.toTeamEntity(
@@ -44,11 +57,7 @@ public class TeamService {
 
         Team savedTeam = teamRepository.save(team);
 
-        List<Player> players = teamDTO.players().stream()
-                .map(playerDTO -> PlayerMapper.toPlayerEntity(playerDTO, team))
-                .toList();
-
-        playerRepository.saveAll(players);
+        playerService.saveAllPlayers(teamDTO.players(), savedTeam);
 
         return savedTeam.getId();
     }

@@ -53,4 +53,9 @@ public class GlobalExceptionsHandler {
     public ResponseEntity<?> handlePropertyReferenceException(PropertyReferenceException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", ex.getMessage()));
     }
+
+    @ExceptionHandler(InvalidTeamSizeException.class)
+    public ResponseEntity<?> handleInvalidTeamSizeException(InvalidTeamSizeException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", ex.getMessage()));
+    }
 }

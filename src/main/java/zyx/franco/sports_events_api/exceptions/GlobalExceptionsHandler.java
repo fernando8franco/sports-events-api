@@ -1,6 +1,7 @@
 package zyx.franco.sports_events_api.exceptions;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @ControllerAdvice
 public class GlobalExceptionsHandler {
@@ -57,5 +61,27 @@ public class GlobalExceptionsHandler {
     @ExceptionHandler(InvalidTeamSizeException.class)
     public ResponseEntity<?> handleInvalidTeamSizeException(InvalidTeamSizeException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        String exMessage = ex.getRootCause() != null ? ex.getRootCause().getMessage() : ex.getMessage();
+        Map<String,String> duplicated = new HashMap<>();
+        String key = "Unknown key";
+        String val = "Unknown value";
+
+        if (exMessage != null) {
+            Pattern pattern = Pattern.compile("Key \\((.*?)\\)=\\((.*?)\\)");
+            Matcher matcher = pattern.matcher(exMessage);
+            if (matcher.find()) {
+                key = matcher.group(1);
+                val = matcher.group(2);
+            }
+        }
+
+        duplicated.put("key", key);
+        duplicated.put("value", val);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("duplicated", duplicated));
     }
 }

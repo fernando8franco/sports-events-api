@@ -27,4 +27,21 @@ public class TeamMapper {
                 null
         );
     }
+
+    public static TeamResponseDTO toTeamResponseDTO(Team team) {
+        if (team == null)
+            throw new IllegalArgumentException("The team should not be null");
+
+        return new TeamResponseDTO(
+                team.getId(),
+                team.getName(),
+                team.getRecordDate(),
+                team.getActive(),
+                team.getDependencySport().getDependency().getName(),
+                team.getDependencySport().getSport().getName(),
+                team.getDependencySport().getSport().getCategory(),
+                team.getEvent().getName(),
+                team.getPlayers()
+        );
+    }
 }

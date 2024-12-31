@@ -1,6 +1,10 @@
 package zyx.franco.sports_events_api.team;
 
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
@@ -60,6 +64,21 @@ public class TeamService {
         playerService.saveAllPlayers(teamDTO.players(), savedTeam);
 
         return savedTeam.getId();
+    }
+
+    public Page<TeamResponseDTO> findAllTeams(Pageable pageable, String sortBy, boolean ascending) {
+        Sort sort = ascending
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        pageable = PageRequest.of(
+                pageable.getPageNumber() - 1,
+                pageable.getPageSize(),
+                sort
+        );
+
+        return teamRepository.findAll(pageable)
+                .map(TeamMapper::toTeamResponseDTO);
     }
 
     public Team findTeamById(Long id) {

@@ -93,8 +93,9 @@ public class TeamService {
                 .map(TeamMapper::toTeamResponseDTO);
     }
 
-    public Team findTeamById(Long id) {
+    public TeamResponseDTO findTeamById(Long id) {
         return teamRepository.findById(id)
+                .map(TeamMapper::toTeamResponseDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Team not found with id: " + id));
     }
 }

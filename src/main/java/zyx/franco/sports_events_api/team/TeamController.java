@@ -43,4 +43,11 @@ public class TeamController {
         Page<TeamResponseDTO> teams = teamService.findAllTeams(pageable, sortBy, ascending);
         return ResponseEntity.ok(teams.getContent());
     }
+
+    @GetMapping("/{teamId}")
+    public ResponseEntity<TeamResponseDTO> findTeamById(@PathVariable Long teamId) {
+        TeamResponseDTO team = teamService.findTeamById(teamId);
+
+        return ResponseEntity.ok(team);
+    }
 }

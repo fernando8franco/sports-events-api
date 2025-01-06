@@ -67,6 +67,18 @@ public class TeamService {
     }
 
     public Page<TeamResponseDTO> findAllTeams(Pageable pageable, String sortBy, boolean ascending) {
+        switch (sortBy) {
+            case "dependency_name":
+                sortBy = "dependencySport_dependency_name";
+                break;
+            case "sport_name":
+                sortBy = "dependencySport_sport_name";
+                break;
+            case "sport_category":
+                sortBy = "dependencySport_sport_category";
+                break;
+        }
+
         Sort sort = ascending
                 ? Sort.by(sortBy).ascending()
                 : Sort.by(sortBy).descending();

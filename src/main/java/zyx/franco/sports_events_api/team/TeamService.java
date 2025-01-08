@@ -11,7 +11,6 @@ import zyx.franco.sports_events_api.dependency_sport.DependencySportService;
 import zyx.franco.sports_events_api.event.Event;
 import zyx.franco.sports_events_api.event.EventService;
 import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
-import zyx.franco.sports_events_api.player.PlayerRepository;
 import zyx.franco.sports_events_api.player.PlayerService;
 
 import java.time.LocalDate;
@@ -23,7 +22,7 @@ public class TeamService {
     private final EventService eventService;
     private final PlayerService playerService;
 
-    public TeamService(TeamRepository teamRepository, PlayerRepository playerRepository, DependencySportService dependencySportService, EventService eventService, PlayerService playerService) {
+    public TeamService(TeamRepository teamRepository, DependencySportService dependencySportService, EventService eventService, PlayerService playerService) {
         this.teamRepository = teamRepository;
         this.dependencySportService = dependencySportService;
         this.eventService = eventService;

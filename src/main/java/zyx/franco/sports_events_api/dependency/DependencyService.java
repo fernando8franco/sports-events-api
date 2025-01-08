@@ -43,8 +43,7 @@ public class DependencyService {
     public void updateDependency(Integer id, DependencyDTO dependencyDTO) {
         findDependencyById(id);
 
-        Dependency dependencyUpdate = DependencyMapper.toDependency(dependencyDTO);
-        dependencyUpdate.setId(id);
+        Dependency dependencyUpdate = DependencyMapper.toDependency(id, dependencyDTO);
 
         dependencyRepository.save(dependencyUpdate);
     }

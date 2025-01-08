@@ -45,8 +45,8 @@ public class DependencyController {
     }
 
     @GetMapping("/{dependencyId}")
-    public ResponseEntity<DependencyDTO> findDependencyById(@PathVariable Integer dependencyId) {
-        DependencyDTO dependency = dependencyService.findById(dependencyId);
+    public ResponseEntity<Dependency> findDependencyById(@PathVariable Integer dependencyId) {
+        Dependency dependency = dependencyService.findDependencyById(dependencyId);
 
         return ResponseEntity.ok(dependency);
     }
@@ -56,12 +56,7 @@ public class DependencyController {
             @PathVariable Integer dependencyId,
             @Valid @RequestBody DependencyDTO dependencyDTO
     ) {
-        dependencyService.findById(dependencyId);
-
-        Dependency updateDependency = DependencyMapper.toDependencyEntity(dependencyDTO);
-        updateDependency.setId(dependencyId);
-
-        dependencyService.updateDependency(updateDependency);
+        dependencyService.updateDependency(dependencyId, dependencyDTO);
 
         return ResponseEntity.noContent().build();
     }
@@ -70,8 +65,6 @@ public class DependencyController {
     public ResponseEntity<Void> deleteDependency(
             @PathVariable Integer dependencyId
     ) {
-        dependencyService.findById(dependencyId);
-
         dependencyService.deleteDependency(dependencyId);
 
         return ResponseEntity.noContent().build();

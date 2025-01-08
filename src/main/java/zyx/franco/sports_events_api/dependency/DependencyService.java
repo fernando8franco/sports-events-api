@@ -16,7 +16,7 @@ public class DependencyService {
     }
 
     public Integer saveDependency(DependencyDTO dependencyDTO) {
-        Dependency dependency = DependencyMapper.toDependencyEntity(dependencyDTO);
+        Dependency dependency = DependencyMapper.toDependency(dependencyDTO);
         Dependency dependencySaved = dependencyRepository.save(dependency);
         return dependencySaved.getId();
     }
@@ -35,17 +35,23 @@ public class DependencyService {
         return dependencyRepository.findAll(pageable);
     }
 
-    public DependencyDTO findById(Integer id) {
+    public Dependency findDependencyById(Integer id) {
         return dependencyRepository.findById(id)
-                .map(DependencyMapper::toDependencyDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Dependency not found with id: " + id));
     }
 
-    public void updateDependency(Dependency dependency) {
-        dependencyRepository.save(dependency);
+    public void updateDependency(Integer id, DependencyDTO dependencyDTO) {
+        findDependencyById(id);
+
+        Dependency dependencyUpdate = DependencyMapper.toDependency(dependencyDTO);
+        dependencyUpdate.setId(id);
+
+        dependencyRepository.save(dependencyUpdate);
     }
 
     public void deleteDependency(Integer id) {
+        findDependencyById(id);
+
         dependencyRepository.deleteById(id);
     }
 }

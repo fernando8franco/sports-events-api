@@ -2,7 +2,7 @@ package zyx.franco.sports_events_api.dependency;
 
 public class DependencyMapper {
 
-    public static Dependency toDependencyEntity(DependencyDTO dependencyDTO) {
+    public static Dependency toDependency(DependencyDTO dependencyDTO) {
         if (dependencyDTO == null)
             throw new IllegalArgumentException("The dependency should not be null");
 

@@ -7,6 +7,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import zyx.franco.sports_events_api.event.EventDTO;
 
 import java.net.URI;
 import java.util.List;
@@ -49,5 +50,15 @@ public class TeamController {
         TeamResponseDTO team = teamService.findTeamById(teamId);
 
         return ResponseEntity.ok(team);
+    }
+
+    @PutMapping("/{teamId}")
+    public ResponseEntity<Void> updateTeam(
+            @PathVariable Long teamId,
+            @Valid @RequestBody TeamUpdateDTO teamDTO
+    ) {
+        teamService.updateTeam(teamId, teamDTO);
+
+        return ResponseEntity.noContent().build();
     }
 }

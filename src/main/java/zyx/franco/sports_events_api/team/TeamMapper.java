@@ -44,4 +44,24 @@ public class TeamMapper {
                 team.getPlayers()
         );
     }
+
+    public static Team toTeamEntity(
+            TeamUpdateDTO teamUpdateDTO,
+            LocalDate recordDate,
+            DependencySport dependencySport,
+            Event event
+    ) {
+        if (teamUpdateDTO == null)
+            throw new IllegalArgumentException("The team should not be null");
+
+        return new Team(
+                null,
+                teamUpdateDTO.name(),
+                recordDate,
+                teamUpdateDTO.isActive(),
+                dependencySport,
+                event,
+                null
+        );
+    }
 }

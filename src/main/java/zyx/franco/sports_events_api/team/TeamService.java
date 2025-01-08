@@ -98,4 +98,22 @@ public class TeamService {
                 .map(TeamMapper::toTeamResponseDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Team not found with id: " + id));
     }
+
+    public void updateTeam(Long id, TeamUpdateDTO teamUpdateDTO) {
+        TeamResponseDTO teamResponseDTO = findTeamById(id);
+
+        DependencySport dependencySport = dependencySportService.findDependencyServiceById(teamUpdateDTO.dependencySportId());
+
+        Event event = eventService.findEventById(teamUpdateDTO.eventId());
+
+        Team team = TeamMapper.toTeamEntity(
+                teamUpdateDTO,
+                teamResponseDTO.recordDate(),
+                dependencySport,
+                event
+        );
+        team.setId(id);
+
+        teamRepository.save(team);
+    }
 }

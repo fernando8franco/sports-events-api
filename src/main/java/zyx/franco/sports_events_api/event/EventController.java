@@ -21,8 +21,8 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}")
-    public ResponseEntity<EventDTO> findById(@PathVariable Integer eventId) {
-        EventDTO event = eventService.findById(eventId);
+    public ResponseEntity<Event> findById(@PathVariable Integer eventId) {
+        Event event = eventService.findEventById(eventId);
 
         return ResponseEntity.ok(event);
     }
@@ -53,20 +53,13 @@ public class EventController {
             @PathVariable Integer eventId,
             @Valid @RequestBody EventDTO eventDTO
     ) {
-        eventService.findById(eventId);
-
-        Event updateEvent = EventMapper.toEventEntity(eventDTO);
-        updateEvent.setId(eventId);
-
-        eventService.updateEvent(updateEvent);
+        eventService.updateEvent(eventId, eventDTO);
 
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{eventId}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Integer eventId) {
-        eventService.findById(eventId);
-
         eventService.deleteEvent(eventId);
 
         return ResponseEntity.noContent().build();

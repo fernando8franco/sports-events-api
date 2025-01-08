@@ -16,7 +16,7 @@ public class EventService {
     }
 
     public Integer saveEvent(EventDTO eventDTO) {
-        Event event = EventMapper.toEventEntity(eventDTO);
+        Event event = EventMapper.toEvent(eventDTO);
         Event eventSaved = eventRepository.save(event);
         return eventSaved.getId();
     }
@@ -35,22 +35,22 @@ public class EventService {
         return eventRepository.findAll(pageable);
     }
 
-    public EventDTO findById(Integer id) {
-        return eventRepository.findById(id)
-                .map(EventMapper::toEventDTO)
-                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
-    }
-
     public Event findEventById(Integer id) {
         return eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
     }
 
-    public void updateEvent(Event event) {
-        eventRepository.save(event);
+    public void updateEvent(Integer id, EventDTO eventDTO) {
+        findEventById(id);
+
+        Event eventUpdate = EventMapper.toEvent(id, eventDTO);
+
+        eventRepository.save(eventUpdate);
     }
 
     public void deleteEvent(Integer id) {
+        findEventById(id);
+
         eventRepository.deleteById(id);
     }
 }

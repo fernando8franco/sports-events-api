@@ -6,20 +6,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import zyx.franco.sports_events_api.dependency_sport.DependencySport;
 import zyx.franco.sports_events_api.dependency_sport.DependencySportService;
 import zyx.franco.sports_events_api.event.Event;
 import zyx.franco.sports_events_api.event.EventService;
-import zyx.franco.sports_events_api.exceptions.InvalidTeamSizeException;
 import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
-import zyx.franco.sports_events_api.player.Player;
-import zyx.franco.sports_events_api.player.PlayerMapper;
 import zyx.franco.sports_events_api.player.PlayerRepository;
 import zyx.franco.sports_events_api.player.PlayerService;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class TeamService {
@@ -37,24 +32,20 @@ public class TeamService {
 
     @Transactional
     public Long saveTeam(TeamDTO teamDTO) {
-        DependencySport dependencySport = dependencySportService.findDependencyServiceById(teamDTO.dependencySportId());
+        LocalDate recordDate = LocalDate.now();
+        Boolean isActive = true;
 
-        int numPlayers = dependencySport.getSport().getNumPlayers();
-        int numExtraPlayers = dependencySport.getSport().getNumExtraPlayers();
-        int totalPlayers = teamDTO.players().size();
-
-        if (totalPlayers < numPlayers || totalPlayers > numPlayers + numExtraPlayers)
-            throw new InvalidTeamSizeException("The number of players in the team is invalid. Expected between "
-                    + numPlayers + " and "
-                    + (numPlayers + numExtraPlayers)
-                    + ", but got " + totalPlayers);
+        DependencySport dependencySport = dependencySportService.findDependencySportByIdAndCheckPlayers(
+                teamDTO.dependencySportId(),
+                teamDTO.players().size()
+        );
 
         Event event = eventService.findEventById(teamDTO.eventId());
 
-        Team team = TeamMapper.toTeamEntity(
+        Team team = TeamMapper.toTeam(
                 teamDTO,
-                LocalDate.now(),
-                true,
+                recordDate,
+                isActive,
                 dependencySport,
                 event
         );
@@ -102,17 +93,17 @@ public class TeamService {
     public void updateTeam(Long id, TeamUpdateDTO teamUpdateDTO) {
         TeamResponseDTO teamResponseDTO = findTeamById(id);
 
-        DependencySport dependencySport = dependencySportService.findDependencyServiceById(teamUpdateDTO.dependencySportId());
+        DependencySport dependencySport = dependencySportService.findDependencySportById(teamUpdateDTO.dependencySportId());
 
         Event event = eventService.findEventById(teamUpdateDTO.eventId());
 
-        Team team = TeamMapper.toTeamEntity(
+        Team team = TeamMapper.toTeam(
+                id,
                 teamUpdateDTO,
                 teamResponseDTO.recordDate(),
                 dependencySport,
                 event
         );
-        team.setId(id);
 
         teamRepository.save(team);
     }

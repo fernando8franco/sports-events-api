@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class TeamMapper {
 
-    public static Team toTeamEntity(
+    public static Team toTeam(
             TeamDTO teamDTO,
             LocalDate recordDate,
             Boolean isActive,
@@ -28,6 +28,27 @@ public class TeamMapper {
         );
     }
 
+    public static Team toTeam(
+            Long id,
+            TeamUpdateDTO teamUpdateDTO,
+            LocalDate recordDate,
+            DependencySport dependencySport,
+            Event event
+    ) {
+        if (teamUpdateDTO == null)
+            throw new IllegalArgumentException("The team should not be null");
+
+        return new Team(
+                id,
+                teamUpdateDTO.name(),
+                recordDate,
+                teamUpdateDTO.isActive(),
+                dependencySport,
+                event,
+                null
+        );
+    }
+
     public static TeamResponseDTO toTeamResponseDTO(Team team) {
         if (team == null)
             throw new IllegalArgumentException("The team should not be null");
@@ -42,26 +63,6 @@ public class TeamMapper {
                 team.getDependencySport().getSport().getCategory(),
                 team.getEvent().getName(),
                 team.getPlayers()
-        );
-    }
-
-    public static Team toTeamEntity(
-            TeamUpdateDTO teamUpdateDTO,
-            LocalDate recordDate,
-            DependencySport dependencySport,
-            Event event
-    ) {
-        if (teamUpdateDTO == null)
-            throw new IllegalArgumentException("The team should not be null");
-
-        return new Team(
-                null,
-                teamUpdateDTO.name(),
-                recordDate,
-                teamUpdateDTO.isActive(),
-                dependencySport,
-                event,
-                null
         );
     }
 }

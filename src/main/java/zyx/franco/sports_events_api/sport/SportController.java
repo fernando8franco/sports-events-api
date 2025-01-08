@@ -45,15 +45,17 @@ public class SportController {
                 sortBy,
                 ascending
         );
+
         return ResponseEntity.ok(sportPage.getContent());
     }
 
     @GetMapping("/{sportId}")
-    public ResponseEntity<SportDTO> findSportById(
+    public ResponseEntity<Sport> findSportById(
             @PathVariable Integer sportId
     ) {
-        SportDTO sportDTO = sportService.findSportById(sportId);
-        return ResponseEntity.ok(sportDTO);
+        Sport sport = sportService.findSportById(sportId);
+
+        return ResponseEntity.ok(sport);
     }
 
     @PutMapping("/{sportId}")
@@ -61,12 +63,7 @@ public class SportController {
             @PathVariable Integer sportId,
             @Valid @RequestBody SportDTO sportDTO
     ) {
-        sportService.findSportById(sportId);
-
-        Sport updateSport = SportMapper.toSportEntity(sportDTO);
-        updateSport.setId(sportId);
-
-        sportService.updateSport(updateSport);
+        sportService.updateSport(sportId, sportDTO);
 
         return ResponseEntity.noContent().build();
     }
@@ -75,8 +72,6 @@ public class SportController {
     public ResponseEntity<Void> deleteSport(
             @PathVariable Integer sportId
     ) {
-        sportService.findSportById(sportId);
-
         sportService.deleteSport(sportId);
 
         return ResponseEntity.noContent().build();

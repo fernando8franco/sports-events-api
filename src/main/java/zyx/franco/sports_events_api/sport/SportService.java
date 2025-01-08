@@ -35,17 +35,22 @@ public class SportService {
         return sportRepository.findAll(pageable);
     }
 
-    public SportDTO findSportById(Integer id) {
+    public Sport findSportById(Integer id) {
         return sportRepository.findById(id)
-                .map(SportMapper::toSportDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("Sport not found with id: " + id));
     }
 
-    public void updateSport(Sport sport) {
-        sportRepository.save(sport);
+    public void updateSport(Integer id, SportDTO sportDTO) {
+        findSportById(id);
+
+        Sport sportUpdate = SportMapper.toSportEntity(id, sportDTO);
+
+        sportRepository.save(sportUpdate);
     }
 
     public void deleteSport(Integer id) {
+        findSportById(id);
+
         sportRepository.deleteById(id);
     }
 }

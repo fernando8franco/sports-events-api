@@ -11,6 +11,7 @@ import zyx.franco.sports_events_api.event.EventDTO;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/teams")
@@ -55,9 +56,18 @@ public class TeamController {
     @PutMapping("/{teamId}")
     public ResponseEntity<Void> updateTeam(
             @PathVariable Long teamId,
-            @Valid @RequestBody TeamUpdateDTO teamDTO
+            @Valid @RequestBody TeamUpdateDTO teamUpdateDTO
     ) {
-        teamService.updateTeam(teamId, teamDTO);
+        teamService.updateTeam(teamId, teamUpdateDTO);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{teamId}")
+    public ResponseEntity<Void> deleteTeam(
+            @PathVariable Long teamId
+    ) {
+        teamService.deleteTeam(teamId);
 
         return ResponseEntity.noContent().build();
     }

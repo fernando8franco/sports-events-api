@@ -116,4 +116,10 @@ public class TeamService {
 
         teamRepository.save(team);
     }
+
+    public void deleteTeam(Long id) {
+        findTeamById(id);
+
+        teamRepository.deleteById(id);
+    }
 }

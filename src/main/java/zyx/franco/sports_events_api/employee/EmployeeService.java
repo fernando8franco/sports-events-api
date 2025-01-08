@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import zyx.franco.sports_events_api.dependency.Dependency;
-import zyx.franco.sports_events_api.dependency.DependencyRepository;
+import zyx.franco.sports_events_api.dependency.DependencyService;
 import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 
 import java.util.UUID;
@@ -14,18 +14,17 @@ import java.util.UUID;
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final DependencyRepository dependencyRepository;
+    private final DependencyService dependencyService;
 
-    public EmployeeService(EmployeeRepository employeeRepository, DependencyRepository dependencyRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, DependencyService dependencyService) {
         this.employeeRepository = employeeRepository;
-        this.dependencyRepository = dependencyRepository;
+        this.dependencyService = dependencyService;
     }
 
     public UUID saveEmployee(EmployeeDTO employeeDTO) {
-        Dependency dependency = dependencyRepository.findById(employeeDTO.dependencyId())
-                .orElseThrow(() -> new ResourceNotFoundException("Dependency not found with id: " + employeeDTO.dependencyId()));
+        Dependency dependency = dependencyService.findDependencyById(employeeDTO.dependencyId());
 
-        Employee employee = EmployeeMapper.toEmployeeEntity(employeeDTO, dependency);
+        Employee employee = EmployeeMapper.toEmployee(employeeDTO, dependency);
         Employee employeeSaved = employeeRepository.save(employee);
         return employeeSaved.getId();
     }
@@ -49,14 +48,12 @@ public class EmployeeService {
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
     }
 
-    public void updateEmployee(UUID employeeId, EmployeeDTO employeeDTO) {
-        findEmployeeById(employeeId);
+    public void updateEmployee(UUID id, EmployeeDTO employeeDTO) {
+        findEmployeeById(id);
 
-        Dependency dependency = dependencyRepository.findById(employeeDTO.dependencyId())
-                .orElseThrow(() -> new ResourceNotFoundException("Dependency not found with id: " + employeeDTO.dependencyId()));
+        Dependency dependency = dependencyService.findDependencyById(employeeDTO.dependencyId());
 
-        Employee updateEmployee = EmployeeMapper.toEmployeeEntity(employeeDTO, dependency);
-        updateEmployee.setId(employeeId);
+        Employee updateEmployee = EmployeeMapper.toEmployee(id, employeeDTO, dependency);
 
         employeeRepository.save(updateEmployee);
     }

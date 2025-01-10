@@ -44,6 +44,12 @@ public class DependencyController {
         return ResponseEntity.ok(dependencyResponseDTOS.getContent());
     }
 
+    @GetMapping("/summary")
+    public ResponseEntity<List<DependencySummaryDTO>> findAllDependencies() {
+        List<DependencySummaryDTO> dependencySummaryDTOS = dependencyService.findAllDependenciesSummary();
+        return ResponseEntity.ok(dependencySummaryDTOS);
+    }
+
     @GetMapping("/{dependencyId}")
     public ResponseEntity<Dependency> findDependencyById(@PathVariable Integer dependencyId) {
         Dependency dependency = dependencyService.findDependencyById(dependencyId);

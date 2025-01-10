@@ -7,6 +7,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import zyx.franco.sports_events_api.exceptions.ResourceNotFoundException;
 
+import java.util.List;
+
 @Service
 public class DependencyService {
     private final DependencyRepository dependencyRepository;
@@ -33,6 +35,12 @@ public class DependencyService {
         );
 
         return dependencyRepository.findAll(pageable);
+    }
+
+    public List<DependencySummaryDTO> findAllDependenciesSummary() {
+        return dependencyRepository.findAll().stream()
+                .map(DependencyMapper::toDependencySummaryDTO)
+                .toList();
     }
 
     public Dependency findDependencyById(Integer id) {

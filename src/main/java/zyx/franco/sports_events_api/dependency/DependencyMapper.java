@@ -25,13 +25,13 @@ public class DependencyMapper {
         return dependency;
     }
 
-    public static DependencyDTO toDependencyDTO(Dependency dependency) {
+    public static DependencySummaryDTO toDependencySummaryDTO(Dependency dependency) {
         if (dependency == null)
             throw new IllegalArgumentException("The dependency should not be null");
 
-        return new DependencyDTO(
-                dependency.getName(),
-                dependency.getCategory()
+        return new DependencySummaryDTO(
+                dependency.getId(),
+                dependency.getName() + " - " + dependency.getCategory()
         );
     }
 }
